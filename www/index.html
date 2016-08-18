@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+  </head>
+  <body ng-app="nutriotos">
+
+    <ion-pane>
+      <ion-header-bar class="bar-stable">
+        <h1 class="title">Cadastro Nutricionista</h1>
+      </ion-header-bar>
+      <ion-content>
+        <div ng-controller="nutricionistaController" class="formulario">
+          <form name="formNutricionista" ng-submit="addNutricionista()" novalidate="" class="validacao-form">
+            <p>
+              <input type="text" placeholder="Nome" ng-model="nome" name="nome" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.nome.touched">
+                <span ng-show="formNutricionista.nome.$error.required">O nome é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="radio" ng-model="sexo" value="Masculino" name="sexo">Masculino
+              <input type="radio" ng-model="sexo" value="Feminino" name="sexo">Feminino
+              <span ng-show="formNutricionista.$submitted || formNutricionista.sexo.touched">
+                <span ng-show="formNutricionista.sexo.$error.required">Escolha uma das opções</span>
+              </span>
+            </p>
+            <p>
+              <input type="number" placeholder="CPF" ng-model="cpf" name="cpf" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.cpf.touched">
+                <span ng-show="formNutricionista.cpf.$error.required">O cpf é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="number" placeholder="CRN" ng-model="crn" name="crn" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.crn.touched">
+                <span ng-show="formNutricionista.crn.$error.required">Você precisa ter um registro</span>
+              </span>
+            </p>
+            <p>
+              <input type="text" placeholder="Região" ng-model="regiao" name="regiao" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.regiao.touched">
+                <span ng-show="formNutricionista.regiao.$error.required">Voçê precisa estar associado a uma região, é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="email" placeholder="E-mail" ng-model="email" name="email" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.email.touched">
+                <span ng-show="formNutricionista.email.$error.required">O email é obrigatório, é a nossa comunicação com você.</span>
+                <span ng-show="formNutricionista.email.$error.email">Ops, esse e-mail não é válido</span>
+              </span>
+            </p>
+            <p>
+              <input type="tel" placeholder="Telefone" ng-model="telefone" name="telefone" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.telefone.touched">
+                <span ng-show="formNutricionista.telefone.$error.required">O telefone é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="text" placeholder="CEP" ng-model="cep" name="cep" required ng-model-options="{ updateOn: 'blur' }">
+              <button type="button" class="button button-calm" ng-click="findCep()">Achei o CEP</button>
+              <span ng-show="formNutricionista.$submitted || formNutricionista.cep.touched">
+                <span ng-show="formNutricionista.cep.$error.required">O CEP é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="text" placeholder="Logradouro" ng-model="logradouro">
+            </p>
+            <p>
+              <input type="number" placeholder="Número" ng-model="numero" name="numero" required ng-model-options="{ updateOn: 'blur' }">
+              <span ng-show="formNutricionista.$submitted || formNutricionista.numero.touched">
+                <span ng-show="formNutricionista.numero.$error.required">Voçê precisa colocar o número, é obrigatório</span>
+              </span>
+            </p>
+            <p>
+              <input type="text" placeholder="Complemento" ng-model="complemento">
+            </p>
+            <p>
+              <input type="text" placeholder="Bairro" ng-model="bairro">
+            </p>
+            <p>
+              <input type="text" placeholder="Cidade" ng-model="cidade">
+            </p>
+            <p>
+              <input type="text" placeholder="Estado" ng-model="estado">
+            </p>
+            <p>
+              <input type="password" placeholder="Senha" ng-model="senha">
+            </p>
+            <p>
+              <input type="checkbox" ng-model="termos" required ng-model-options="{ updateOn: 'blur' }">Aceito os termos
+              <span ng-show="formNutricionista.$submitted || formNutricionista.termos.touched">
+                <span ng-show="formNutricionista.termos.$error.required">Voçê precisa aceitar os termos para continuar o cadastro</span>
+              </span>
+            </p>
+            <button type="submit" class="button button-calm">Enviar</button>
+          </form>
+        </div>
+      </ion-content>
+    </ion-pane>
+
+    
+        
+    
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC_OR2YCQgpGFCe17Aqi8jlNugUghJmbVk",
+        authDomain: "nutri-app.firebaseapp.com",
+        databaseURL: "https://nutri-app.firebaseio.com",
+        storageBucket: "nutri-app.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="js/nutricionista.controller.js"></script>
+    
+  </body>
+</html>
